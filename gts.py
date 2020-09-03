@@ -11,6 +11,20 @@ from googletrans import Translator
 from nltk.tag import StanfordNERTagger
 from nltk.tokenize import word_tokenize
 import os
+import sys
+import requests
+
+if len(sys.argv) != 2:
+    print ("Usage: Python gts.py <url>")
+    print ("e.g: python gts.py http://example.com")
+    sys.exit()
+else:
+    url = sys.argv[1]
+    request = requests.get(url)
+    if request.status_code != 200:
+        print ("This URL did not return a status code of 200. Try a different URL.")
+        print ("Status Code:" + str(request.status_code))
+        exit()
 
 def printArray(array, array_name):
     print (array_name + ":" + "\n" + "--------------")
@@ -29,7 +43,7 @@ st = StanfordNERTagger(r'stanford-ner-4.0.0/stanford-ner-4.0.0/classifiers/engli
 extractor = extractors.ArticleExtractor()
 
 # From a URL
-content = extractor.get_content_from_url('https://www.alarabiya.net/ar/culture-and-art/2020/08/19/%D9%85%D9%81%D8%A7%D8%AC%D8%A3%D8%A9-%D8%B9%D9%85%D8%B1%D9%88-%D8%AF%D9%8A%D8%A7%D8%A8-%D9%8A%D8%B9%D9%88%D8%AF-%D9%84%D9%84%D8%AA%D9%85%D8%AB%D9%8A%D9%84-%D9%85%D8%B9-%D9%86%D8%AA%D9%81%D9%84%D9%8A%D9%83%D8%B3-%D8%A8%D8%B9%D8%AF-%D8%A7%D9%86%D9%82%D8%B7%D8%A7%D8%B9-27-%D8%B9%D8%A7%D9%85%D8%A7.html')
+content = extractor.get_content_from_url(url)
 
 #print (content)
 
@@ -42,6 +56,7 @@ translated_content = output.text
 #print (translated_content)
 
 tokenized_text = word_tokenize(translated_content)
+
 classified_text = st.tag(tokenized_text)
 
 #print(type(classified_text))

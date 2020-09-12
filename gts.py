@@ -5,6 +5,7 @@ from boilerpy3 import extractors
 from googletrans import Translator
 from nltk.tag import StanfordNERTagger
 from nltk.tokenize import word_tokenize
+from collections import Counter
 import os
 import sys
 
@@ -30,11 +31,13 @@ def extract(url):
 
 	tagged_text = st.tag(tokenized_text)
 
+	dedup_tags = Counter(tagged_text)
+
 	res = {k: [] for k in TRACKED_CLASSES}
-	for item in tagged_text:
+	for item, count in dedup_tags.items():
 		if item[1] in TRACKED_CLASSES:
 			ar_item = translator.translate(item[0], src='en', dest='ar')
-			res[item[1]].append((item[0], ar_item.text))
+			res[item[1]].append((item[0], ar_item.text, count))
 	return res
 
 if __name__ == "__main__":
@@ -49,5 +52,5 @@ if __name__ == "__main__":
 		for cat in TRACKED_CLASSES:
 			print("----------- " + cat + " -------------")
 			for e in ext_entities[cat]:
-				print(e[0], e[1])
+				print(e[0], e[1], e[2])
 

@@ -1,10 +1,5 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Aug 19 15:38:06 2020
-
-@author: Hussam Hallak
-"""
-
 
 from boilerpy3 import extractors
 from googletrans import Translator
@@ -33,12 +28,8 @@ def printArray(array, array_name):
         ar_item = translator.translate(item, src='en', dest='ar')
         print (ar_item.text)
 
-
-#java_path = "C:\Program Files (x86)\Java\jre1.8.0_251/java.exe"
-#os.environ['JAVA_HOME'] = java_path
-
-st = StanfordNERTagger(r'stanford-ner-4.0.0/stanford-ner-4.0.0/classifiers/english.all.3class.distsim.crf.ser.gz',
-					   r'stanford-ner-4.0.0/stanford-ner-4.0.0/stanford-ner.jar',
+st = StanfordNERTagger(r'stanford-ner-4.0.0/classifiers/english.all.3class.distsim.crf.ser.gz',
+					   r'stanford-ner-4.0.0/stanford-ner.jar',
 					   encoding='utf-8')
 
 extractor = extractors.ArticleExtractor()

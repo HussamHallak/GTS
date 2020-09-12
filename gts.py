@@ -33,8 +33,9 @@ def printArray(array, array_name):
         ar_item = translator.translate(item, src='en', dest='ar')
         print (ar_item.text)
 
-java_path = "C:\Program Files (x86)\Java\jre1.8.0_251/java.exe"
-os.environ['JAVAHOME'] = java_path
+
+#java_path = "C:\Program Files (x86)\Java\jre1.8.0_251/java.exe"
+#os.environ['JAVA_HOME'] = java_path
 
 st = StanfordNERTagger(r'stanford-ner-4.0.0/stanford-ner-4.0.0/classifiers/english.all.3class.distsim.crf.ser.gz',
 					   r'stanford-ner-4.0.0/stanford-ner-4.0.0/stanford-ner.jar',
